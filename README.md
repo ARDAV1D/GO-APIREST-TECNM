@@ -12,6 +12,5 @@ y por ultimo en la tabla de reticula se crearon 11 columnas, especialidad_id que
 #COMANDOS PARA IMAGENES DOCKERHUB 
 #APITECNM
 docker pull ardav1d/apitecnm
-
 #POSTGRES
 docker pull ardav1d/postgres
