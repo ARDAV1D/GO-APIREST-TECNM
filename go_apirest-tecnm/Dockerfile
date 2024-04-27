@@ -1,17 +1,33 @@
-# Utiliza una imagen base de Go
-FROM golang:latest
+#build stage
+FROM golang:1.22.2-alpine3.19 AS builder
+RUN apk add --no-cache git
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia el código fuente de tu API al directorio de trabajo del contenedor
+COPY ["go.mod", "go.sum", "./"]
+RUN go mod download -x
+
 COPY . .
 
-# Compila el código de tu API
-RUN go build -o main .
+RUN go build \ 
+    -ldflags="-s -w" \
+    -o app -v .
 
-# Expone el puerto en el que tu API escucha
-EXPOSE 8080
+#final stage
+FROM alpine:3.19
+LABEL Name=dockerization
 
-# Comando por defecto para ejecutar tu API
-CMD ["./main"]
+RUN apk update
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+ENTRYPOINT ["./app"]
+
+EXPOSE 3000
+
+#Crear contenedor de la api para que se pueda conectar a otro contenedor. 
+#docker run -d --name restapi-1 -p 3000:3000 --env POSTGRES_HOST=some-postgres --env POSTGRES_PORT=5432 
+#--env POSTGRES_USER=david --env POSTGRES_PASSWORD=password --env POSTGRES_DB=db_apitecnm apitecnm:v1

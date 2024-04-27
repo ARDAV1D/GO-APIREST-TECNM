@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  restapi:
+    image: apitecnm:v1
+    ports:
+      - "3000:3000"
+
+
+  some-postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: db_apitecnm
+      POSTGRES_USER: david
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+#Para conectar el contenedor creado a la red docker creada.
+#docker network connect go_apirest-tecnm_default go_apirest-tecnm-restapi-1
