@@ -10,7 +10,7 @@ En la tabla de materia se crearon 3 columnas, nombre_Ma, especialidad_id que es 
 y por ultimo en la tabla de reticula se crearon 11 columnas, especialidad_id que es la llave foranea de especialidad, semestre_1 hasta el 9 y materias_id que es la llave foranea de la tabla materia.
 
 #COMANDOS PARA IMAGENES DOCKERHUB 
-#APITECNM
+#APITECNM https://hub.docker.com/r/ardav1d/postgres
 docker pull ardav1d/apitecnm
-#POSTGRES
+#POSTGRES https://hub.docker.com/r/ardav1d/postgres
 docker pull ardav1d/postgres
