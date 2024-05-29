@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apitecnm-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tecnm-api
+  template:
+    metadata:
+      labels:
+        app: tecnm-api
+    spec:
+      containers:
+        - name: api-container
+          image: ardav1d/apitecnm:v2
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://david:password@db-service:5432/db_apitecnm"
